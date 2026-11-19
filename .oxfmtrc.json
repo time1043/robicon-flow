@@ -18,7 +18,7 @@
   },
 
   "sortTailwindcss": {
-    "stylesheet": "./src/index.css",
+    "stylesheet": "./src/renderer/index.css",
     "functions": ["clsx", "cn"],
     "preserveWhitespace": true
   },
