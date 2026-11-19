@@ -1,6 +1,5 @@
 {
   "name": "robicon-flow",
-  "productName": "robicon-flow",
   "version": "1.0.0",
   "private": true,
   "description": "My Electron application description",
@@ -12,21 +11,17 @@
   },
   "main": ".vite/build/main.cjs",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "release": "electron-forge release",
     "lint": "oxlint && oxfmt --check",
     "lint:fix": "oxlint --fix && oxfmt --write",
+    "make": "electron-forge make",
+    "package": "electron-forge package",
+    "release": "electron-forge release",
+    "start": "electron-forge start",
     "typecheck": "tsc --noEmit"
   },
-  "devEngines": {
-    "packageManager": "pnpm@11.21.0"
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
   },
-  "peerDependencies": {
-    "electron-winstaller": "^5.4.0"
-  },
-  "packageManager": "pnpm@12.21.0+sha512.66fd8278ee28935ce951792d34367ff3af5c432a2756445823029533835b8da529bbe0be5130afd56ed0713fb8789e47bad82d93bd5ae2fe54b15562d6276ef0",
   "devDependencies": {
     "@electron-forge/cli": "^8.0.1",
     "@electron-forge/maker-deb": "^8.0.1",
@@ -44,7 +39,12 @@
     "typescript": "^6.0.3",
     "vite": "^8.3.8"
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
-  }
+  "peerDependencies": {
+    "electron-winstaller": "^5.4.0"
+  },
+  "devEngines": {
+    "packageManager": "pnpm@11.21.0"
+  },
+  "packageManager": "pnpm@12.21.0+sha512.66fd8278ee28935ce951792d34367ff3af5c432a2756445823029533835b8da529bbe0be5130afd56ed0713fb8789e47bad82d93bd5ae2fe54b15562d6276ef0",
+  "productName": "robicon-flow"
 }
