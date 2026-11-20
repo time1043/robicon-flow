@@ -10,8 +10,7 @@ if (started) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
     },
@@ -24,8 +23,13 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`))
   }
 
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+    mainWindow.maximize()
+  })
+
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
