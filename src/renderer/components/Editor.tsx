@@ -1,26 +1,25 @@
 import * as monaco from 'monaco-editor'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 import styles from './Editor.module.css'
 
 export default function Editor() {
-  const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor | null>(null)
-  const monacoEl = useRef(null)
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null)
+  const monacoEl = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (monacoEl) {
-      setEditor((editor) => {
-        if (editor) return editor
+    if (!monacoEl.current) return
 
-        return monaco.editor.create(monacoEl.current!, {
-          value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-          language: 'typescript',
-        })
-      })
+    editorRef.current = monaco.editor.create(monacoEl.current, {
+      value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+      language: 'typescript',
+    })
+
+    return () => {
+      editorRef.current?.dispose()
+      editorRef.current = null
     }
-
-    return () => editor?.dispose()
-  }, [monacoEl.current])
+  }, [])
 
   return <div className={styles.Editor} ref={monacoEl}></div>
 }
