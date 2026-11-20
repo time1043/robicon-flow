@@ -13,6 +13,8 @@ export default function Editor() {
     editorRef.current = monaco.editor.create(monacoEl.current, {
       value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
       language: 'typescript',
+      fontSize: 18,
+      theme: 'vs-dark',
       automaticLayout: true,
     })
 
