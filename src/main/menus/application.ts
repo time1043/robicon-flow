@@ -1,17 +1,18 @@
-import { Menu, MenuItem, MenuItemConstructorOptions, nativeImage, shell } from 'electron'
+import { Menu, MenuItem, MenuItemConstructorOptions, shell } from 'electron'
 
-import { assetPath } from '@/main/utils/assets'
+import { openFile } from '@/main/utils/file'
 
-const alwaysOnTopMenuItem: MenuItemConstructorOptions = {
-  label: 'Always on Top',
-  type: 'checkbox',
-  click: (menuItem, window) => {
-    window?.setAlwaysOnTop(menuItem.checked)
+const fileOpenMenuItem: MenuItemConstructorOptions = {
+  label: 'Open...',
+  // Open file select dialog
+  click: async () => {
+    const result = await openFile()
+    if (!result) {
+      return
+    }
+
+    // TODO: Send file content from main to renderer
   },
-  icon:
-    process.platform === 'darwin'
-      ? nativeImage.createMenuSymbol('pin')
-      : nativeImage.createFromPath(assetPath('pin.png')),
 }
 
 const menuTemplate: MenuItemConstructorOptions[] = [
@@ -38,11 +39,11 @@ export function registerApplicationMenu() {
   // const currentAppMenu = Menu.getApplicationMenu();
   const currentMenuItems =
     Menu.getApplicationMenu()?.items.map((item: MenuItem) => {
-      if (item.role?.toLowerCase() === 'windowmenu') {
+      if (item.role?.toLowerCase() === 'filemenu') {
         return new MenuItem({
-          role: 'windowMenu',
+          role: 'fileMenu',
           // submenu: [...item.submenu?.items],
-          submenu: Menu.buildFromTemplate([alwaysOnTopMenuItem, ...(item.submenu?.items || [])]),
+          submenu: Menu.buildFromTemplate([fileOpenMenuItem, ...(item.submenu?.items || [])]),
         })
       } else {
         return item
